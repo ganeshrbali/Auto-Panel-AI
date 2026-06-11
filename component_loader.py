@@ -1,4 +1,10 @@
 from PIL import Image, ImageChops
+import os
+
+# -----------------------------------
+# Base directory
+# -----------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # -----------------------------------
@@ -23,7 +29,9 @@ def crop_white(img):
 # -----------------------------------
 def load_component(path, width, height):
 
-    img = Image.open(path).convert("RGBA")
+    full_path = os.path.join(BASE_DIR, path)
+
+    img = Image.open(full_path).convert("RGBA")
 
     # Remove white background
     datas = img.getdata()
@@ -32,7 +40,6 @@ def load_component(path, width, height):
 
     for item in datas:
 
-        # Make white pixels transparent
         if item[0] > 240 and item[1] > 240 and item[2] > 240:
             newData.append((255, 255, 255, 0))
         else:
@@ -56,62 +63,64 @@ def load_all_components():
 
     components = {}
 
+    COMPONENT_FOLDER = "assets/assets/components"
+
     components["MCCB"] = load_component(
-    "assets/components/MCCB.png",
-    120,
-    160
+        f"{COMPONENT_FOLDER}/MCCB.png",
+        120,
+        160
     )
 
     components["MCB"] = load_component(
-        "assets/components/MCB.png",
+        f"{COMPONENT_FOLDER}/MCB.png",
         90,
         140
     )
 
     components["PLC"] = load_component(
-        "assets/components/PLC.png",
+        f"{COMPONENT_FOLDER}/PLC.png",
         180,
         140
     )
 
     components["SMPS"] = load_component(
-        "assets/components/SMPS.png",
+        f"{COMPONENT_FOLDER}/SMPS.png",
         100,
         140
     )
 
     components["VAF"] = load_component(
-        "assets/components/VAF.png",
+        f"{COMPONENT_FOLDER}/VAF.png",
         120,
         140
     )
 
     components["VFD"] = load_component(
-        "assets/components/VFD.png",
+        f"{COMPONENT_FOLDER}/VFD.png",
         130,
         180
     )
 
     components["CONTACTOR"] = load_component(
-        "assets/components/CONTACTOR.png",
+        f"{COMPONENT_FOLDER}/CONTACTOR.png",
         130,
         180
     )
 
     components["OLR"] = load_component(
-        "assets/components/OLR.png",
+        f"{COMPONENT_FOLDER}/OLR.png",
         120,
         120
     )
 
     components["TB"] = load_component(
-        "assets/components/TB.png",
+        f"{COMPONENT_FOLDER}/TB.png",
         450,
         70
     )
 
     components["HMI"] = load_component(
-        "assets/components/HMI.png",
+        f"{COMPONENT_FOLDER}/HMI.png",
         300,
         150
     )
